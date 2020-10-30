@@ -2,3 +2,5 @@
 
 # Added patches
 - Blurred screenshot
+- DPMS
+- Media keys
