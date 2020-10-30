@@ -4,3 +4,4 @@
 - Blurred screenshot
 - DPMS
 - Media keys
+- Quick cancel
