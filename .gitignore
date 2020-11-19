@@ -1,2 +1,6 @@
 # Files
 *.o
+
+.cproject
+.project
+.settings/
