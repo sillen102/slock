@@ -167,47 +167,47 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 			    IsPrivateKeypadKey(ksym))
 				continue;
 			switch (ksym) {
-      case XF86XK_AudioPlay:
-      case XF86XK_AudioStop:
-      case XF86XK_AudioPrev:
-      case XF86XK_AudioNext:
-      case XF86XK_AudioRaiseVolume:
-      case XF86XK_AudioLowerVolume:
-      case XF86XK_AudioMute:
-      case XF86XK_AudioMicMute:
-      case XF86XK_MonBrightnessDown:
-      case XF86XK_MonBrightnessUp:
-        XSendEvent(dpy, DefaultRootWindow(dpy), True, KeyPressMask, &ev);
-        break;
-			case XK_Return:
-				passwd[len] = '\0';
-				errno = 0;
-				if (!(inputhash = crypt(passwd, hash)))
-					fprintf(stderr, "slock: crypt: %s\n", strerror(errno));
-				else
-					running = !!strcmp(inputhash, hash);
-				if (running) {
-					XBell(dpy, 100);
-					failure = 1;
-				}
-				explicit_bzero(&passwd, sizeof(passwd));
-				len = 0;
-				break;
-			case XK_Escape:
-				explicit_bzero(&passwd, sizeof(passwd));
-				len = 0;
-				break;
-			case XK_BackSpace:
-				if (len)
-					passwd[--len] = '\0';
-				break;
-			default:
-				if (num && !iscntrl((int)buf[0]) &&
-				    (len + num < sizeof(passwd))) {
-					memcpy(passwd + len, buf, num);
-					len += num;
-				}
-				break;
+                case XF86XK_AudioPlay:
+                case XF86XK_AudioStop:
+                case XF86XK_AudioPrev:
+                case XF86XK_AudioNext:
+                case XF86XK_AudioRaiseVolume:
+                case XF86XK_AudioLowerVolume:
+                case XF86XK_AudioMute:
+                case XF86XK_AudioMicMute:
+                case XF86XK_MonBrightnessDown:
+                case XF86XK_MonBrightnessUp:
+                    XSendEvent(dpy, DefaultRootWindow(dpy), True, KeyPressMask, &ev);
+                    break;
+			    case XK_Return:
+				    passwd[len] = '\0';
+				    errno = 0;
+				    if (!(inputhash = crypt(passwd, hash)))
+					    fprintf(stderr, "slock: crypt: %s\n", strerror(errno));
+				    else
+					    running = !!strcmp(inputhash, hash);
+				    if (running) {
+					    XBell(dpy, 100);
+					    failure = 1;
+				    }
+				    explicit_bzero(&passwd, sizeof(passwd));
+				    len = 0;
+				    break;
+			    case XK_Escape:
+				    explicit_bzero(&passwd, sizeof(passwd));
+				    len = 0;
+				    break;
+			    case XK_BackSpace:
+				    if (len)
+					    passwd[--len] = '\0';
+				    break;
+			    default:
+				    if (num && !iscntrl((int)buf[0]) &&
+				        (len + num < sizeof(passwd))) {
+					    memcpy(passwd + len, buf, num);
+					    len += num;
+				    }
+				    break;
 			}
 			color = len ? INPUT : ((failure || failonclear) ? FAILED : INIT);
 			if (running && oldc != color) {
