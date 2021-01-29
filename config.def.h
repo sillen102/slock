@@ -12,7 +12,7 @@ static const char *colorname[NUMCOLS] = {
 static const int failonclear = 1;
 
 /* time in seconds to cancel lock with mouse movement */
-static const int timetocancel = 3;
+static const int timetocancel = 0;
 
 /* time in seconds before the monitor shuts down */
 static const int monitortime = 10;
